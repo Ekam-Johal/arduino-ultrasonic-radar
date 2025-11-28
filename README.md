@@ -99,6 +99,20 @@ You will see:
 
 ---
 
+📦 Future Improvements
+
+Add buzzer alarm
+
+Add servo rotation for radar scanning
+
+Add OLED graphical display
+
+Wireless alert using Bluetooth
+
+📝 License
+
+MIT License
+
 ## 📜 Code
 
 ```cpp
@@ -170,16 +184,3 @@ void loop() {
 
   delay(150);
 }
-📦 Future Improvements
-
-Add buzzer alarm
-
-Add servo rotation for radar scanning
-
-Add OLED graphical display
-
-Wireless alert using Bluetooth
-
-📝 License
-
-MIT License
