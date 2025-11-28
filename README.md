@@ -1,7 +1,5 @@
 
 ![D9AEA2CF-7216-4B0C-94AC-D37052E8E851](https://github.com/user-attachments/assets/09ff27da-2a33-4134-b87a-0563f750b113)
-![DEA39E66-49D9-4CD9-9026-E84804AA4C3F](https://github.com/user-attachments/assets/082e9747-e021-47e7-a0dc-72960607a310)
-![03A4F70F-9705-4460-ACAD-28B3027B7960](https://github.com/user-attachments/assets/fa910105-7357-4ea3-b5c5-67c0341173d7)
 
 # Ultrasonic Object Detection System (Arduino Project)
 
