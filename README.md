@@ -1,5 +1,5 @@
 
-![D9AEA2CF-7216-4B0C-94AC-D37052E8E851](https://github.com/user-attachments/assets/09ff27da-2a33-4134-b87a-0563f750b113)
+![D9AEA2CF-7216-4B0C-94AC-D37052E8E851](https://github.com/user-attachments/assets/09ff27da-2a33-4134-b87a-0563f750b113) <img src="images/your-image.jpg" width="300">
 
 # Ultrasonic Object Detection System (Arduino Project)
 
