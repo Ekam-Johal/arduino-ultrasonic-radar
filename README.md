@@ -116,142 +116,98 @@ You will see:
 
 ---
 
-📘 What I Learned
-
+# What I Learned
 This project strengthened my understanding of embedded systems, electronics, and sensor integration. Throughout the build process, I worked with multiple hardware and software components and improved my ability to design reliable, real-world systems.
 
 Key learning outcomes:
 
-🔹 Embedded Programming (Arduino C/C++)
+### Embedded Programming (Arduino C/C++)
+- Writing clean, structured embedded code  
+- Working with timing-based functions (`pulseIn`, microsecond calculations)  
+- Handling conditional logic for sensors and indicators  
+- Displaying real-time dynamic data on an LCD  
 
-Writing clean, structured embedded code
+### Electronics and Circuit Design
+- Understanding digital I/O behaviour  
+- Correctly wiring LEDs with resistors  
+- Using ultrasonic sensors (HC-SR04) with trigger/echo timing  
+- Debugging incorrect wiring and interpreting unstable sensor readings  
+- Power management and grounding for stable sensor operation  
 
-Working with timing-based functions (pulseIn, microsecond calculations)
+### System Integration
+- Coordinating multiple subsystems (ultrasonic sensor, LCD, red and green LEDs)  
+- Ensuring stable operation when components share power  
+- Planning component layout on a breadboard for clean cable management  
 
-Handling conditional logic for sensors & indicators
+---
 
-Displaying real-time dynamic data on an LCD
-
-🔹 Electronics & Circuit Design
-
-Understanding digital I/O behaviour
-
-Correctly wiring LEDs with resistors
-
-Using ultrasonic sensors (HC-SR04) with trigger/echo timing
-
-Debugging incorrect wiring and interpreting unstable sensor readings
-
-Power management and grounding for stable sensor operation
-
-🔹 System Integration
-
-Coordinating multiple subsystems:
-✅ Ultrasonic sensor
-✅ LCD display
-✅ Red/green LEDs
-
-Ensuring stable operation when multiple components share power
-
-Planning component layout on a breadboard for clean cable management
-
-🧠 Engineering Skills Demonstrated
-
+# Engineering Skills Demonstrated
 This project shows practical skills that are directly relevant to Electrical Engineering, Mechatronics, and Computer Systems Engineering.
 
-✔️ Hardware/Software Integration
-
+### Hardware and Software Integration  
 Demonstrates ability to connect physical electronics to digital logic through reliable firmware.
 
-✔️ Real-Time Systems
+### Real-Time Systems  
+Distance is measured continuously, processed instantly, and displayed without lag, showing understanding of simple real-time loops.
 
-Distance is measured continuously, processed instantly, and displayed without delays — showing understanding of simple real-time loops.
-
-✔️ Sensor Interfacing
-
+### Sensor Interfacing  
 The ultrasonic module requires understanding of:
+- microsecond timing  
+- signal reflection  
+- threshold detection  
+- noise handling  
 
-microsecond timing
-
-signal reflection
-
-threshold detection
-
-noise handling
-
-✔️ Problem Solving & Debugging
-
+### Problem Solving and Debugging  
 During development I troubleshooted:
+- floating sensor values  
+- incorrect LED polarity  
+- LCD address/pin mapping issues  
+- breadboard wiring mistakes  
 
-floating sensor values
+This shows initiative, independence, and hands-on troubleshooting skills that employers value highly.
 
-incorrect LED polarity
+---
 
-LCD I2C addressing and pin mapping
+# Why This Project Matters
+This system represents a real engineering workflow:
 
-breadboard short circuits
+1. Define the requirement (detect objects closer than 15 cm)  
+2. Select appropriate sensors  
+3. Integrate electronics safely  
+4. Write embedded software to process data  
+5. Provide output feedback through LEDs and LCD  
+6. Test, debug, and refine  
 
-This shows initiative, independence, and hands-on troubleshooting skills — all valuable to employers hiring interns.
+This workflow is commonly used in:
+- robotics and automation  
+- parking and proximity sensors  
+- safety systems  
+- mechatronics devices  
+- embedded product development  
 
-🚀 Why This Project Matters
+Building a working prototype demonstrates that I can take an idea from concept to a functioning embedded system.
 
-Although simple, this system represents a real engineering workflow:
+---
 
-Define the requirement (detect nearby objects <15 cm)
+# Potential Improvements (Future Work)
+- Add a servo motor for rotating radar scanning  
+- Send data to a PC for plotting  
+- Log readings (CSV output or SD card)  
+- Integrate wireless communication using an ESP32  
+- Add a buzzer for audible alerts  
+- Create a graphical radar interface using Processing  
 
-Select appropriate sensors
+---
 
-Integrate electronics safely
-
-Write embedded software to process signals
-
-Display feedback and provide warnings
-
-Test, debug, and refine
-
-This is the exact process used in:
-
-robotics obstacle detection
-
-parking sensors
-
-automation systems
-
-mechatronics safety systems
-
-embedded product development
-
-Recruiters look for projects that prove you can take something from idea → working prototype, and this project does exactly that.
-
-🛠️ Potential Improvements (Future Work)
-
-These optional upgrades show initiative and forward-thinking engineering ability:
-
-Add a servo motor to create rotating radar scanning
-
-Send distance data to a PC via serial plotting
-
-Log readings for analysis (CSV output)
-
-Integrate with an ESP32 for wireless IoT monitoring
-
-Replace LEDs with a buzzer for audible warnings
-
-Create a full graphical radar interface using Processing
-
-Including a list like this shows that you think like an engineer — always improving.
-
-🏁 Summary
-
+# Summary
 This project demonstrates my ability to:
+- design circuits  
+- write embedded C/C++ code  
+- integrate sensors  
+- debug hardware  
+- document engineering projects clearly  
 
-✔️ design circuits
-✔️ write embedded code
-✔️ integrate sensors
-✔️ debug hardware
-✔️ document engineering work clearly
-
-It represents a strong foundation in electrical and computer systems engineering principles and is a valuable step toward more advanced embedded and robotics projects.
+It shows a strong foundation in electrical and computer systems engineering and serves as a solid starting point for more advanced embedded and robotics projects.
 
 📝 License
 
