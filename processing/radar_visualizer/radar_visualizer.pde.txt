@@ -1,0 +1,81 @@
+import processing.serial.*;
+
+Serial myPort;
+
+float angleDeg = 0;
+float distanceCm = 0;
+float maxRange = 200; // cm, adjust to what you want
+
+void setup() {
+  size(800, 400);
+  // PRINT AVAILABLE PORTS
+  println(Serial.list());
+  // CHANGE index if needed after you see the list in console
+  String portName = Serial.list()[0];  // try [0] first, or change
+  myPort = new Serial(this, portName, 9600);
+  myPort.bufferUntil('\n');
+}
+
+void draw() {
+  background(0);
+
+  // Radar centre at bottom middle
+  translate(width/2, height);
+  stroke(0, 255, 0);
+  noFill();
+
+  // Draw arcs (range circles)
+  for (int r = 50; r <= 350; r += 50) {
+    arc(0, 0, 2*r, 2*r, PI, TWO_PI);
+  }
+
+  // Draw angle lines for reference
+  for (int a = 0; a <= 180; a += 30) {
+    float rad = radians(a);
+    float x = 350 * cos(PI - rad);
+    float y = -350 * sin(PI - rad);
+    line(0, 0, x, y);
+  }
+
+  // Draw sweeping line
+  float sweepRad = radians(angleDeg);
+  float sx = 350 * cos(PI - sweepRad);
+  float sy = -350 * sin(PI - sweepRad);
+
+  stroke(0, 255, 0);
+  line(0, 0, sx, sy);
+
+  // Draw detected object if in range
+  if (distanceCm > 0 && distanceCm < maxRange) {
+    float rNorm = map(distanceCm, 0, maxRange, 0, 350);
+    float ox = rNorm * cos(PI - sweepRad);
+    float oy = -rNorm * sin(PI - sweepRad);
+
+    fill(0, 255, 0);
+    noStroke();
+    ellipse(ox, oy, 10, 10);
+  }
+
+  // HUD text
+  resetMatrix();
+  fill(0, 255, 0);
+  textSize(16);
+  text("Angle: " + int(angleDeg) + " deg", 10, 20);
+  text("Distance: " + int(distanceCm) + " cm", 10, 40);
+}
+
+void serialEvent(Serial p) {
+  String inString = p.readStringUntil('\n');
+  if (inString != null) {
+    inString = trim(inString);
+    String[] parts = split(inString, ',');
+    if (parts.length == 2) {
+      try {
+        angleDeg = float(parts[0]);
+        distanceCm = float(parts[1]);
+      } catch (Exception e) {
+        // ignore bad lines
+      }
+    }
+  }
+}

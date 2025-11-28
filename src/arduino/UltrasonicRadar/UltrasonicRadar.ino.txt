@@ -1,0 +1,96 @@
+#include <Servo.h>
+#include <Adafruit_SSD1306.h>
+#include <Adafruit_GFX.h>
+#include <Wire.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+Servo radarServo;
+
+#define TRIG 10
+#define ECHO 11
+#define SERVO_PIN 9
+
+long getDistance() {
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+
+  long duration = pulseIn(ECHO, HIGH, 30000); // timeout 30ms
+  if (duration == 0) return 400; // out of range
+  return duration * 0.034 / 2;   // convert to cm
+}
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+
+  radarServo.attach(SERVO_PIN);
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    // If OLED not found, just continue without it
+  }
+
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+}
+
+void loop() {
+  // Sweep 0 → 180
+  for (int angle = 0; angle <= 180; angle++) {
+    radarServo.write(angle);
+    delay(15);
+
+    int distance = getDistance();
+
+    // ---- Serial output for Processing ----
+    // FORMAT: angle,distance
+    Serial.print(angle);
+    Serial.print(",");
+    Serial.println(distance);
+
+    // ---- OLED text ----
+    display.clearDisplay();
+    display.setCursor(0, 0);
+    display.print("Angle: ");
+    display.print(angle);
+
+    display.setCursor(0, 10);
+    display.print("Dist: ");
+    display.print(distance);
+    display.print(" cm");
+
+    display.display();
+  }
+
+  // Sweep 180 → 0
+  for (int angle = 180; angle >= 0; angle--) {
+    radarServo.write(angle);
+    delay(15);
+
+    int distance = getDistance();
+
+    Serial.print(angle);
+    Serial.print(",");
+    Serial.println(distance);
+
+    display.clearDisplay();
+    display.setCursor(0, 0);
+    display.print("Angle: ");
+    display.print(angle);
+
+    display.setCursor(0, 10);
+    display.print("Dist: ");
+    display.print(distance);
+    display.print(" cm");
+
+    display.display();
+  }
+}
