@@ -60,32 +60,6 @@ It demonstrates embedded systems fundamentals: **PWM, digital I/O, sensor integr
 
 ---
 
-## 📁 Project Structure
-
-arduino-ultrasonic-radar/
-│
-├── src/
-│ └── UltrasonicRadar/
-│ └── UltrasonicRadar.ino
-│
-├── processing/
-│ └── radar_visualizer/
-│ └── radar_visualizer.pde
-│
-├── docs/
-│ ├── radar-setup-photo.jpg
-│ ├── radar-scan-screenshot.png
-│ └── wiring-diagram.png
-│
-├── media/
-│ └── radar-demo.mp4
-│
-├── LICENSE
-└── README.md
-
-
----
-
 ## 🔧 Arduino Firmware
 
 The Arduino firmware performs:
