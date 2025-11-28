@@ -1,139 +1,185 @@
-# 📡 Ultrasonic Radar Scanner (Arduino + Processing)
+# Ultrasonic Object Detection System (Arduino Project)
 
-This project is a 180-degree ultrasonic **radar-style distance scanner** built using an Arduino-compatible microcontroller, an HC-SR04 ultrasonic sensor, and an SG90 servo motor. A Processing visualiser renders a real-time radar sweep, similar to a scanning SONAR or LiDAR system.
+This project uses an HC-SR04 ultrasonic sensor to measure distance and display results on a 16×2 I2C LCD screen.
+Two indicator LEDs provide visual warnings:
 
-It demonstrates embedded systems fundamentals: **PWM, digital I/O, sensor integration, serial communication, and real-time data visualisation**.
+- Red LED → Object detected closer than 15 cm
+- Green LED → Area clear
 
----
-
-## ✨ Features
-
-- 🔄 **Servo-based scanning** from 0° → 180°
-- 📏 **Distance measurement** using HC-SR04
-- 🖥️ **OLED display output** (current angle + distance)
-- 💻 **Processing visualiser** for classic radar sweep animation
-- 🔌 Simple wiring, fully powered over USB
-- 📡 Real-time serial communication between Arduino + PC
+This is a simple and effective proximity alert system for Arduino beginners.
 
 ---
 
-## 🧰 Hardware Used
+## 🚀 Features
 
-- Arduino Uno–compatible CH340 board (ATmega328P)
-- SG90 micro servo
-- HC-SR04 ultrasonic distance sensor
-- 0.96" I²C OLED (SSD1306) — optional
-- Breadboard + jumper wires
-- USB cable for power + data
+- Real-time distance measurement
+- LCD distance display (in cm)
+- Red LED warning when object < 15 cm
+- Green LED when area is clear
+- Live data plotting using Arduino Serial Plotter
+- Works on Arduino Uno and clones
 
 ---
 
-## 🔌 Wiring Diagram
+## 🔧 Components Used
 
-### **Ultrasonic Sensor (HC-SR04)**
+| Component | Quantity |
+|----------|----------|
+| Arduino Uno / clone | 1 |
+| HC-SR04 Ultrasonic Sensor | 1 |
+| 16×2 I2C LCD Display | 1 |
+| Red LED | 1 |
+| Green LED | 1 |
+| 220Ω resistors | 2 |
+| Jumper wires + breadboard | - |
+
+---
+
+## 🛠️ Wiring Guide
+
+### Ultrasonic Sensor (HC-SR04)
 
 | HC-SR04 Pin | Arduino Pin |
 |-------------|-------------|
-| VCC         | 5V |
-| GND         | GND |
-| TRIG        | D10 |
-| ECHO        | D11 |
-
-### **Servo (SG90)**
-
-| Servo Wire           | Arduino Pin |
-|----------------------|-------------|
-| Brown/Black (GND)    | GND |
-| Red (VCC)            | 5V |
-| Orange/Yellow (PWM)  | D9 |
-
-### **OLED Display (SSD1306, I²C)**
-
-| OLED Pin | Arduino Pin |
-|----------|-------------|
-| VCC      | 5V |
-| GND      | GND |
-| SDA      | A4 |
-| SCL      | A5 |
-
-> All modules share the same **ground**.
+| VCC | 5V |
+| GND | GND |
+| TRIG | D10 |
+| ECHO | D11 |
 
 ---
 
-## 🔧 Arduino Firmware
+### LCD (16×2 I2C)
 
-The Arduino firmware performs:
-
-1. Servo sweep control (0° → 180°)
-2. Ultrasonic distance measurement
-3. Real-time display on OLED (optional)
-4. Serial output to PC for visualisation
-
-File:
-src/UltrasonicRadar/UltrasonicRadar.ino
-
-
-**Required Arduino Libraries**
-
-- `Servo`
-- `Adafruit GFX`
-- `Adafruit SSD1306`
-
-Install via **Sketch → Include Library → Manage Libraries**.
+| LCD Pin | Arduino Pin |
+|---------|-------------|
+| SDA | A4 |
+| SCL | A5 |
+| VCC | 5V |
+| GND | GND |
 
 ---
 
-## 🖥 Processing Radar Visualiser
+### LED Indicators
 
-The Processing script renders a real-time radar UI and plots detected points based on serial data.
+#### Red LED
+- Long leg (anode) → D3 through 220Ω resistor
+- Short leg (cathode) → GND
 
-File:
-processing/radar_visualizer/radar_visualizer.pde
-
-
-### How to Run:
-
-1. Upload Arduino sketch
-2. Close Arduino Serial Monitor
-3. Open Processing sketch
-4. Adjust serial port index (`Serial.list()[x]`)
-5. Click **Run**
+#### Green LED
+- Long leg (anode) → D4 through 220Ω resistor
+- Short leg (cathode) → GND
 
 ---
 
-## 🎥 Demo
+## 🧠 How It Works
 
-media/radar-demo.mp4
-
-
-Add screenshots in `docs/`.
-
----
-
-## 🧠 How It Works (High-Level)
-
-- The **servo** defines the scanning angle.
-- The **ultrasonic sensor** measures distance using time-of-flight.
-- Arduino prints data as:
-angle,distance
-
-- Processing converts polar → Cartesian coordinates.
-- Points are plotted on a semi-circular radar graph.
-- This mimics basic principles of radar and 2D LiDAR scanning.
+1. The HC-SR04 sends out an ultrasonic pulse.
+2. The pulse bounces off an object and returns to the sensor.
+3. The Arduino calculates the distance.
+4. Distance is shown on the LCD.
+5. If distance < 15 cm:
+   - Red LED turns on
+   - LCD shows "OBJECT NEAR!"
+6. If distance ≥ 15 cm:
+   - Green LED turns on
+   - LCD shows "CLEAR"
+7. Distance data is plotted in Arduino Serial Plotter.
 
 ---
 
-## 🚀 Future Improvements
+## 🖥️ Serial Plotter
 
-- Add LEDs or buzzer warnings for close objects
-- Add SD card or CSV logging
-- Replace Processing with Python visualiser
-- Add Bluetooth (HC-05) to stream data to mobile
-- Upgrade to ESP32 for WiFi dashboard
-- Implement 360° scanning with continuous servo
+Open:
+
+Tools → Serial Plotter
+
+You will see:
+- Blue line: measured distance
+- Red line: 15 cm threshold
 
 ---
 
-## 📝 License
+## 📜 Code
 
-MIT License — free to use and modify.
+```cpp
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// Ultrasonic pins
+const int trigPin = 10;
+const int echoPin = 11;
+
+// LED pins
+const int redLED = 3;
+const int greenLED = 4;
+
+const int threshold = 15; // cm
+
+void setup() {
+  lcd.init();
+  lcd.backlight();
+
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  pinMode(redLED, OUTPUT);
+  pinMode(greenLED, OUTPUT);
+
+  Serial.begin(9600);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Ultrasonic Ready");
+  delay(1500);
+  lcd.clear();
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  long duration = pulseIn(echoPin, HIGH);
+  long distance = duration * 0.034 / 2;
+
+  lcd.setCursor(0,0);
+  lcd.print("Dist: ");
+  lcd.print(distance);
+  lcd.print(" cm   ");
+
+  lcd.setCursor(0,1);
+
+  if (distance > 0 && distance < threshold) {
+    lcd.print("OBJECT NEAR!  ");
+    digitalWrite(redLED, HIGH);
+    digitalWrite(greenLED, LOW);
+  } 
+  else {
+    lcd.print("CLEAR         ");
+    digitalWrite(redLED, LOW);
+    digitalWrite(greenLED, HIGH);
+  }
+
+  Serial.print(distance);
+  Serial.print(",");
+  Serial.println(threshold);
+
+  delay(150);
+}
+📦 Future Improvements
+
+Add buzzer alarm
+
+Add servo rotation for radar scanning
+
+Add OLED graphical display
+
+Wireless alert using Bluetooth
+
+📝 License
+
+MIT License
