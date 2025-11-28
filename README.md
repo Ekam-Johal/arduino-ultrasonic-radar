@@ -71,9 +71,15 @@ This is a simple and effective proximity alert system for Arduino beginners.
 - Long leg (anode) → D3 through 220Ω resistor
 - Short leg (cathode) → GND
 
+<img src="https://github.com/user-attachments/assets/7f654464-1c34-4b22-81dc-f2182843401a" width="350">
+
+
 #### Green LED
 - Long leg (anode) → D4 through 220Ω resistor
 - Short leg (cathode) → GND
+
+<img src="https://github.com/user-attachments/assets/b5494ebf-328c-431f-95a4-0953ed8fa815" width="350">
+
 
 ---
 
@@ -90,6 +96,11 @@ This is a simple and effective proximity alert system for Arduino beginners.
    - Green LED turns on
    - LCD shows "CLEAR"
 7. Distance data is plotted in Arduino Serial Plotter.
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/1340137a-392e-4a1f-bfb9-273943df011f" width="350" />
+  <img src="https://github.com/user-attachments/assets/13f9b2de-3f8c-4b0d-9733-fe8667f9846d" width="350" />
+</p>
 
 ---
 
